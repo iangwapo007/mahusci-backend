@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TestItemsController;
+use App\Http\Requests\TestItemsRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/test', [TestItemsController::class, 'index']);
 Route::get('/test/{id}', [TestItemsController::class, 'show']);
+Route::post('/add', [TestItemsController::class, 'store']);
 Route::delete('/test/{id}', [TestItemsController::class, 'destroy']);
 
 

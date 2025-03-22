@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\TestItems;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\TestItemsRequest;
 
 class TestItemsController extends Controller
 {
@@ -20,9 +20,13 @@ class TestItemsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TestItemsRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $TestItem = TestItems::create($validated);
+
+        return $TestItem;
     }
 
     /**
