@@ -58,7 +58,7 @@ class TestItemsController extends Controller
     {
         $TestItem = TestItems::findOrFail($id);
 
-        return $TestItem->delete();
+        $TestItem->delete();
 
         return $TestItem;
     }
