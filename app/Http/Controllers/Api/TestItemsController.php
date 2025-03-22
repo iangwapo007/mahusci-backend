@@ -40,9 +40,15 @@ class TestItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TestItemsRequest $request, string $id)
     {
-        //
+        $validated = $request->validated();
+
+         $TestItem = TestItems::findOrFail($id);
+                    
+         $TestItem->update($validated); 
+
+        return $TestItem;
     }
 
     /**

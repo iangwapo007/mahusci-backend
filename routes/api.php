@@ -22,7 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/test', [TestItemsController::class, 'index']);
 Route::get('/test/{id}', [TestItemsController::class, 'show']);
-Route::post('/add', [TestItemsController::class, 'store']);
+Route::post('/test/add', [TestItemsController::class, 'store']);
+Route::put('/test/{id}', [TestItemsController::class, 'update']);
 Route::delete('/test/{id}', [TestItemsController::class, 'destroy']);
 
 
