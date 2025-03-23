@@ -21,7 +21,7 @@ use App\Http\Controllers\Api\TestItemsController;
 
 // Public APIs
 Route::post('/login', [AuthController::class, 'login'])->name('user.login');
-Route::put('/register', [AuthController::class,'store'])->name('user.store');
+Route::put('/register', [UserController::class,'store'])->name('user.store');
 
 // Private APIs
 Route::middleware(['auth:sanctum'])->group(function () {
