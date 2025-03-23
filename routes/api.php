@@ -2,8 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\TestItemsController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\TestItemsController;
+
 
 
 /*
@@ -17,23 +19,32 @@ use App\Http\Controllers\Api\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Public APIs
+Route::post('/login', [AuthController::class, 'login'])->name('user.login');
+Route::put('/register', [AuthController::class,'store'])->name('user.store');
+
+// Private APIs
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout']);
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/user',                         'index');
+        Route::get('/user/{id}',                    'show');
+        Route::put('/register',                     'store')->name('user.store');
+        Route::put('/user/update/{id}',             'update')->name('user.update');
+        Route::put('/user/email/{id}',              'email')->name('user.email');
+        Route::put('/user/password/{id}',           'password')->name('user.password');
+        Route::delete('/user/{id}',                 'destroy');
+    });
+
 });
 
-Route::get('/test', [TestItemsController::class, 'index']);
-Route::get('/test/{id}', [TestItemsController::class, 'show']);
-Route::post('/test/add', [TestItemsController::class, 'store']);
-Route::put('/test/{id}', [TestItemsController::class, 'update']);
-Route::delete('/test/{id}', [TestItemsController::class, 'destroy']);
+// Route::get('/test', [TestItemsController::class, 'index']);
+// Route::get('/test/{id}', [TestItemsController::class, 'show']);
+// Route::post('/test/add', [TestItemsController::class, 'store']);
+// Route::put('/test/{id}', [TestItemsController::class, 'update']);
+// Route::delete('/test/{id}', [TestItemsController::class, 'destroy']);
 
-Route::get('/user', [UserController::class, 'index']);
-Route::get('/user/{id}', [UserController::class, 'show']);
-Route::put('/user/add', [UserController::class, 'store'])->name('user.store');
-Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
-Route::put('/user/email/{id}', [UserController::class, 'email'])->name('user.email');
-Route::put('/user/password/{id}', [UserController::class, 'password'])->name('user.password');
-Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
 
 
