@@ -21,7 +21,7 @@ use App\Http\Controllers\Api\TestItemsController;
 
 // Public APIs
 Route::post('/login', [AuthController::class, 'login'])->name('user.login');
-Route::put('/register', [UserController::class,'store'])->name('user.store');
+Route::post('/register', [UserController::class,'store'])->name('user.store');
 
 // Private APIs
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -31,11 +31,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/user',                         'index');
         Route::get('/user/{id}',                    'show');
         Route::put('/user/update/{id}',             'update')->name('user.update');
-        Route::put('/user/email/{id}',              'email')->name('user.email');
-        Route::put('/user/password/{id}',           'password')->name('user.password');
+        Route::put('/user/update/{id}',             'update')->name('user.email');
         Route::delete('/user/{id}',                 'destroy');
     });
-
+    
 });
 
 // Route::get('/test', [TestItemsController::class, 'index']);

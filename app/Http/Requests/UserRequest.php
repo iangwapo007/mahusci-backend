@@ -23,31 +23,40 @@ class UserRequest extends FormRequest
     {
         if ( request()-> routeIs('user.login') ) {
             return [
-                'email'     => 'required|string|email|max:255',
+                'username'     => 'required|string|max:255',
                 'password'  => 'required|min:8',
             ];
         }
-        if ( request()-> routeIs('user.store') ) {
+        else if ( request()-> routeIs('user.store') ) {
             return [
-                'name'      => 'required|string|max:255',
-                'role'      => 'required|string|max:255',
-                'email'     => 'required|email|unique:App\Models\User,email|max:255',
-                'password'  => 'required|string|confirmed|min:8',
+                'firstname'             => 'required|string|max:255',
+                'middlename'            => 'nullable|string|max:255',
+                'lastname'              => 'required|string|max:255',
+                'age'                   => 'required|integer|min:1|max:30',
+                'role'                  => 'required|string|max:255',
+                'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'email'                 => 'required|email|unique:App\Models\User,email|max:255',
+                'username'              => 'required|string|unique:App\Models\User,username|max:255',
+                'password'              => 'required|string|confirmed|min:8',
+                'grade_level'           => 'required|string|max:255',
+                'school_name'           => 'required|string|max:255',
+                'section'               => 'required|string|max:255',
+                'address'               => 'required|string|max:255',
             ];
         }
         else if( request()-> routeIs('user.update') ) {
             return [
-                'name'      => 'required|string|max:255',
-            ];
-        }
-        else if( request()-> routeIs('user.email') ) {
-            return [
-                'email'     => 'required|string|email|max:255',
-            ];
-        }
-        else if( request()-> routeIs('user.password') ) {
-            return [
-                'password'  => 'required|string|confirmed|min:8',
+                'firstname'             => 'required|string|max:255',
+                'middlename'            => 'nullable|string|max:255',
+                'lastname'              => 'required|string|max:255',
+                'age'                   => 'required|integer|min:1|max:30',
+                'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'email'                 => 'required|email|unique:App\Models\User,email|max:255',
+                'password'              => 'required|string|confirmed|min:8',
+                'grade_level'           => 'required|string|max:255',
+                'school_name'           => 'required|string|max:255',
+                'section'               => 'required|string|max:255',
+                'address'               => 'required|string|max:255',
             ];
         }
     }
