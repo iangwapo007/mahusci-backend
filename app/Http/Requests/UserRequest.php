@@ -32,6 +32,7 @@ class UserRequest extends FormRequest
                 'firstname'             => 'required|string|max:255',
                 'middlename'            => 'nullable|string|max:255',
                 'lastname'              => 'required|string|max:255',
+                'birthdate'             => 'required|date',
                 'age'                   => 'required|integer|min:1|max:30',
                 'role'                  => 'required|string|max:255',
                 'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
