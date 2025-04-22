@@ -17,22 +17,27 @@ class AuthController extends Controller
      * Display the specified resource.
      */
     public function login(UserRequest $request)
-    {
-        $user = User::where('username', $request->username)->first();
-        
-        if (! $user || ! Hash::check($request->password, $user->password) ) {
-            throw ValidationException::withMessages([
-                'username' => ['The provided credentials are incorrect.'],
-            ]);
-        }
+{
+    $user = User::where('username', $request->username)->first();
 
-        $response = [
-            'user' => $user,
-            'token' => $user->createToken($request->username)->plainTextToken
-        ];
-
-        return $response;
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'username' => ['The provided credentials are incorrect.'],
+        ]);
     }
+
+    // ❌ Delete previous tokens for this user
+    $user->tokens()->delete();
+
+    // ✅ Create a new single token
+    $token = $user->createToken($request->username)->plainTextToken;
+
+    return [
+        'user' => $user,
+        'token' => $token,
+        'role' => $user->role
+    ];
+}
 
      /**
      * Display the specified resource.

@@ -43,6 +43,24 @@ class UserController extends Controller
     }
 
     /**
+     * Display current logged user details.
+     */
+    public function profile(Request $request)
+{
+
+    return $request->user();
+
+    // if (!auth()->check()) {
+    //     return response()->json(['message' => 'Unauthenticated'], 401);
+    // }
+    
+    // return response()->json([
+    //     'user' => auth()->user(),
+    // ]);
+}
+
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(UserRequest $request, string $id)

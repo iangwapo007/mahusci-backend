@@ -23,8 +23,8 @@ class UserRequest extends FormRequest
     {
         if ( request()-> routeIs('user.login') ) {
             return [
-                'username'     => 'required|string|max:255',
-                'password'  => 'required|min:8',
+                'username'              => 'required|string|max:255',
+                'password'              => 'required|min:8',
             ];
         }
         else if ( request()-> routeIs('user.store') ) {
@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
                 'middlename'            => 'nullable|string|max:255',
                 'lastname'              => 'required|string|max:255',
                 'birthdate'             => 'required|date',
-                'age'                   => 'required|integer|min:1|max:30',
+                'age'                   => 'required|integer',
                 'role'                  => 'required|string|max:255',
                 'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'email'                 => 'required|email|unique:App\Models\User,email|max:255',

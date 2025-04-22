@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\TestItemsController;
+
 
 
 
@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::controller(UserController::class)->group(function () {
         Route::get('/user',                         'index');
+        Route::get('/user/profile',                 'profile');
         Route::get('/user/{id}',                    'show');
         Route::put('/user/update/{id}',             'update')->name('user.update');
         Route::put('/user/update/{id}',             'update')->name('user.email');
