@@ -48,7 +48,7 @@ class UserController extends Controller
     public function profile(Request $request)
     {
 
-    return $request->user();
+        return $request->user();
 
     }
 
