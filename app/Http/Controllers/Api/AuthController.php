@@ -35,7 +35,8 @@ class AuthController extends Controller
     return [
         'user' => $user,
         'token' => $token,
-        'role' => $user->role
+        'role' => $user->role,
+        'id' => $user->id,
     ];
 }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -21,6 +22,9 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $userId = $this->route('id');
+
         if ( request()-> routeIs('user.login') ) {
             return [
                 'username'              => 'required|string|max:255',
@@ -45,15 +49,31 @@ class UserRequest extends FormRequest
                 'address'               => 'required|string|max:255',
             ];
         }
+        else if( request()-> routeIs('user.email') ) {
+            return [
+                'email'                 => 'required|email|unique:App\Models\User,email|max:255',
+            ];
+        }
         else if( request()-> routeIs('user.update') ) {
             return [
                 'firstname'             => 'required|string|max:255',
                 'middlename'            => 'nullable|string|max:255',
                 'lastname'              => 'required|string|max:255',
-                'age'                   => 'required|integer|min:1|max:30',
+                'age'                   => 'required|integer',
                 'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'email'                 => 'required|email|unique:App\Models\User,email|max:255',
-                'password'              => 'required|string|confirmed|min:8',
+                'email'                 => [
+                                            'required',
+                                            'email',
+                                            Rule::unique('users')->ignore($userId), // Ignore current user
+                                            'max:255',
+        ],
+                'username'              => [
+                                            'required',
+                                            'string',
+                                            Rule::unique('users')->ignore($userId), // Ignore current user
+                                            'max:255',
+        ],
+                // 'password'              => 'required|string|confirmed|min:8',
                 'grade_level'           => 'required|string|max:255',
                 'school_name'           => 'required|string|max:255',
                 'section'               => 'required|string|max:255',

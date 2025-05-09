@@ -62,7 +62,16 @@ class UserController extends Controller
 
         $validated = $request->validated();
  
-        $user->name = $validated['name'];
+        $user->firstname     = $validated['firstname'];
+        $user->middlename    = $validated['middlename'] ?? null;
+        $user->lastname      = $validated['lastname'];
+        $user->email         = $validated['email'];
+        $user->username      = $validated['username'];
+        $user->age           = $validated['age'];
+        $user->grade_level   = $validated['grade_level'];
+        $user->school_name   = $validated['school_name'];
+        $user->section       = $validated['section'];
+        $user->address       = $validated['address'];
  
         $user->save();
 
@@ -76,8 +85,6 @@ class UserController extends Controller
         $validated = $request->validated();
  
         $user->email = $validated['email'];
- 
-        $user->save();
 
         return $user;
     }

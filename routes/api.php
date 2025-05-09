@@ -32,7 +32,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/user/profile',                 'profile');
         Route::get('/user/{id}',                    'show');
         Route::put('/user/update/{id}',             'update')->name('user.update');
-        Route::put('/user/update/{id}',             'update')->name('user.email');
         Route::delete('/user/{id}',                 'destroy');
     });
     
