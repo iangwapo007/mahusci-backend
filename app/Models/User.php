@@ -32,6 +32,7 @@ class User extends Authenticatable
         'school_name',
         'section',
         'address',
+        'profile_picture',
     ];
 
     /**

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -18,7 +19,8 @@ class AuthController extends Controller
      */
     public function login(UserRequest $request)
 {
-    $user = User::where('username', $request->username)->first();
+    $user = User::where('username', $request->username)->first() ?? $user = Teacher::where('username', $request->username)->first();
+    ;
 
     if (! $user || ! Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
@@ -26,16 +28,15 @@ class AuthController extends Controller
         ]);
     }
 
-    // ❌ Delete previous tokens for this user
     $user->tokens()->delete();
 
-    // ✅ Create a new single token
     $token = $user->createToken($request->username)->plainTextToken;
 
     return [
         'user' => $user,
         'token' => $token,
-        'role' => $user->role
+        'role' => $user->role,
+        'data' => $user
     ];
 }
 
